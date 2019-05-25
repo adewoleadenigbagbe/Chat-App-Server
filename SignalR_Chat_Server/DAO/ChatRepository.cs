@@ -6,12 +6,15 @@ using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using NLog;
 
 namespace SignalR_Chat_Server.DAO
 {
     public class ChatRepository
     {
         private readonly DataBaseSettings _databaseSettings = new DataBaseSettings();
+        private readonly ILogger _logger = LogManager.GetCurrentClassLogger();
+
         public ChatRepository(IOptions<DataBaseSettings> options)
         {
             _databaseSettings = options.Value;
@@ -39,7 +42,7 @@ namespace SignalR_Chat_Server.DAO
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.StackTrace + ex.Message);
+                    _logger.Error(ex.Message + ex.StackTrace);
                     return false;
                 }
 
@@ -72,7 +75,7 @@ namespace SignalR_Chat_Server.DAO
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.StackTrace + ex.Message);
+                    _logger.Error(ex.Message + ex.StackTrace);
                 }
 
             }
@@ -96,7 +99,7 @@ namespace SignalR_Chat_Server.DAO
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine(ex.StackTrace + ex.Message);
+                    _logger.Error(ex.Message + ex.StackTrace);
                     return false;
                 }
 

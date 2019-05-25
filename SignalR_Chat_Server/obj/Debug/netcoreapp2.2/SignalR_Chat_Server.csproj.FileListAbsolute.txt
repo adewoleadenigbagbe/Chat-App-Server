@@ -9,3 +9,4 @@ C:\Users\Charles Adenigbabibe\Documents\AngularApps\CHAT_APP\SignalR_Chat_Server
 C:\Users\Charles Adenigbabibe\Documents\AngularApps\CHAT_APP\SignalR_Chat_Server\SignalR_Chat_Server\obj\Debug\netcoreapp2.2\SignalR_Chat_Server.dll
 C:\Users\Charles Adenigbabibe\Documents\AngularApps\CHAT_APP\SignalR_Chat_Server\SignalR_Chat_Server\obj\Debug\netcoreapp2.2\SignalR_Chat_Server.pdb
 C:\Users\Charles Adenigbabibe\Documents\AngularApps\CHAT_APP\SignalR_Chat_Server\SignalR_Chat_Server\obj\Debug\netcoreapp2.2\SignalR_Chat_Server.csprojAssemblyReference.cache
+C:\Users\Charles Adenigbabibe\Documents\AngularApps\CHAT_APP\SignalR_Chat_Server\SignalR_Chat_Server\bin\Debug\netcoreapp2.2\NLog.config

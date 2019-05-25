@@ -7,41 +7,67 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using NLog;
 
 namespace SignalR_Chat_Server.Concrete
 {
     public class ChatHub : Hub
     {
         private readonly ChatRepository _chatRepository;
+        private readonly ILogger _logger = LogManager.GetCurrentClassLogger(); 
         public ChatHub(IOptions<DataBaseSettings> options)
         {
             _chatRepository = new ChatRepository(options);
         }
         public async Task Broadcast(string messagetoSend, string userName)
         {
-            var connectionId = Context.ConnectionId;
-            var httpContext = Context.GetHttpContext();
-            var queryStrings = httpContext.Request.Query;
+            try
+            {
+                var connectionId = Context.ConnectionId;
+                var httpContext = Context.GetHttpContext();
+                var queryStrings = httpContext.Request.Query;
 
-            var category = queryStrings["group"];           
-            var date = DateTime.Now.ToString("hh:mm tt");
-            var senderName = userName;
+                var category = queryStrings["group"];
+                var date = DateTime.Now.ToString("hh:mm tt");
+                var senderName = userName;
 
-            await Clients.Group(category).SendAsync("OnSendtoClient", senderName, date, messagetoSend, connectionId);
+                await Clients.Group(category).SendAsync("OnSendtoClient", senderName, date, messagetoSend, connectionId);
+
+            }
+            catch(Exception ex)
+            {
+                _logger.Error(ex.Message + ex.StackTrace);
+            }
         }
         public async Task OnTyping(string name)
         {
-            var httpContext = Context.GetHttpContext();
-            var queryStrings = httpContext.Request.Query;
+            try
+            {
+                var httpContext = Context.GetHttpContext();
+                var queryStrings = httpContext.Request.Query;
 
-            var category = queryStrings["group"];
+                var category = queryStrings["group"];
 
-            await Clients.GroupExcept(category, Context.ConnectionId).SendAsync("GetWhoTypes", name);
+                await Clients.GroupExcept(category, Context.ConnectionId).SendAsync("GetWhoTypes", name);
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.Message + ex.StackTrace);
+            }
         }
 
         public string GetConnectionId()
         {
-            return Context.ConnectionId;
+            try
+            {
+                return Context.ConnectionId;
+
+            }
+            catch (Exception ex)
+            {
+                _logger.Debug(ex.Message + ex.StackTrace);
+                return string.Empty;
+            }
         }
 
         public override Task OnConnectedAsync()
@@ -77,7 +103,7 @@ namespace SignalR_Chat_Server.Concrete
             }
             catch(Exception ex)
             {
-                Console.WriteLine(ex.Message);
+                _logger.Error(ex.Message+ ex.StackTrace);
             }
 
             return base.OnConnectedAsync();
@@ -85,20 +111,28 @@ namespace SignalR_Chat_Server.Concrete
         }
         public override Task OnDisconnectedAsync(Exception exception)
         {
-            var httpContext = Context.GetHttpContext();
-
-            var queryStrings = httpContext.Request.Query;
-
-            var userName = queryStrings["username"];
-            var category = queryStrings["group"];
-
-
-            var result = _chatRepository.UpdateOnlineStatus(userName).Result;
-            if(result == true)
+            try
             {
-                Groups.RemoveFromGroupAsync(Context.ConnectionId, category);
-                var message = string.Format("{0} left the group", userName);
-                Clients.GroupExcept(category, Context.ConnectionId).SendAsync("ConnectedAlert", message);
+                var httpContext = Context.GetHttpContext();
+
+                var queryStrings = httpContext.Request.Query;
+
+                var userName = queryStrings["username"];
+                var category = queryStrings["group"];
+
+
+                var result = _chatRepository.UpdateOnlineStatus(userName).Result;
+                if (result == true)
+                {
+                    Groups.RemoveFromGroupAsync(Context.ConnectionId, category);
+                    var message = string.Format("{0} left the group", userName);
+                    Clients.GroupExcept(category, Context.ConnectionId).SendAsync("ConnectedAlert", message);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex.Message + ex.StackTrace);
             }
 
             return base.OnDisconnectedAsync(exception);
