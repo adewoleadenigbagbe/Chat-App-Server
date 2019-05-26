@@ -2,16 +2,12 @@ USE [master]
 GO
 
 /****** Object:  Database [ChatDB]    Script Date: 5/25/2019 9:35:25 PM ******/
-DROP DATABASE [ChatDB]
+IF EXISTS (select * from sys.databases where name='ChatDB') DROP DATABASE  ChatDB
 GO
 
 /****** Object:  Database [ChatDB]    Script Date: 5/25/2019 9:35:25 PM ******/
 CREATE DATABASE [ChatDB]
- CONTAINMENT = NONE
- ON  PRIMARY 
-( NAME = N'ChatDB', FILENAME = N'C:\Users\Charles Adenigbabibe\ChatDB.mdf' , SIZE = 10240KB , MAXSIZE = UNLIMITED, FILEGROWTH = 1024KB )
- LOG ON 
-( NAME = N'ChatDB_log', FILENAME = N'C:\Users\Charles Adenigbabibe\ChatDB_log.ldf' , SIZE = 1024KB , MAXSIZE = 2048GB , FILEGROWTH = 10%)
+ CONTAINMENT = NONE 
 GO
 
 ALTER DATABASE [ChatDB] SET COMPATIBILITY_LEVEL = 120
