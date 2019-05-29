@@ -1,1 +1,1 @@
-﻿Invoke-sqlcmd -ServerInstance 'devAnsibleEnv\SQLEXPRESS'  -InputFile 'C:\GitRepo.CompiledCode\Chat-App-Server\PW_Script\db_script.ps1'
+﻿Invoke-sqlcmd -ServerInstance 'devAnsibleEnv\SQLEXPRESS' -InputFile 'C:\GitRepo.CompiledCode\Chat-App-Server\Sql Script\Drop_CreateDB.sql'
