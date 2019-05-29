@@ -1,4 +1,1 @@
-﻿param([string]$server='',[string]$filename='')
-
-
-Invoke-sqlcmd -ServerInstance $server  -InputFile $filename
+﻿Invoke-sqlcmd -ServerInstance 'denAnsibleEnv\SQLEXPRESS'  -InputFile 'C:\GitRepo.CompiledCode\Chat-App-Server\PW_Script\db_script.ps1'
