@@ -1,1 +1,1 @@
-﻿Invoke-sqlcmd -ServerInstance 'denAnsibleEnv\SQLEXPRESS' -Database ChatDB -InputFile 'C:\GitRepo.CompiledCode\Chat-App-Server\PW_Script\createStoredProcedures.ps1'
+﻿Invoke-sqlcmd -ServerInstance 'devAnsibleEnv\SQLEXPRESS' -Database ChatDB -InputFile 'C:\GitRepo.CompiledCode\Chat-App-Server\PW_Script\createStoredProcedures.ps1'
