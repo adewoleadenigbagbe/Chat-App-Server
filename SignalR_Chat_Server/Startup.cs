@@ -35,7 +35,7 @@ namespace SignalR_Chat_Server
                 builder
                 .AllowAnyMethod()
                 .AllowAnyHeader()
-                .WithOrigins("http://localhost:4200")
+                .WithOrigins("http://localhost:4200", "https://chat-web-app.herokuapp.com/")
                 .AllowCredentials();
             }));
             services.AddSignalR();
