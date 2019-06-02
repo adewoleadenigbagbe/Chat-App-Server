@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using SignalR_Chat_Server.DAO;
 using SignalR_Chat_Server.Model;
+using NLog;
 
 namespace SignalR_Chat_Server.Controllers
 {
@@ -14,6 +15,8 @@ namespace SignalR_Chat_Server.Controllers
     [Route("api/User")]
     public class UserController : Controller
     {
+        private readonly ILogger _logger = LogManager.GetCurrentClassLogger();
+
         private readonly UserRepository _userRepository; 
         public UserController(IOptions<DataBaseSettings> options)
         {
@@ -23,9 +26,23 @@ namespace SignalR_Chat_Server.Controllers
         [Route("login")]
         public async Task<IActionResult> Login([FromBody] User user)
         {
+            _logger.Debug("Started");
             var loginUser = await _userRepository.GetUser(user.UserName.ToLower().Trim(), user.Password.ToLower().Trim());
-            
-            if(!string.IsNullOrEmpty(loginUser.UserName))
+            if (loginUser == null)
+            {
+                var respons = new
+                {
+                    ResponseMessage = "Username and Password not found",
+                    ResponseCode = "10",
+                    UserName = "",
+                    Password = ""
+                };
+                return Ok(respons);
+
+            }
+
+
+            if (!string.IsNullOrEmpty(loginUser.UserName))
             {
                 var response = new
                 {

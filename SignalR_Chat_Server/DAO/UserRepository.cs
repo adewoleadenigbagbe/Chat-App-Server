@@ -23,9 +23,9 @@ namespace SignalR_Chat_Server.DAO
         {
             using (var sqlConnection = new SqlConnection(_databaseSettings.ConnectionString))
             {
-                await sqlConnection.OpenAsync();
                 try
                 {
+                    await sqlConnection.OpenAsync();
                     var username = await GetUserByName(user.UserName.ToLower().Trim());
                     if(username != string.Empty)
                     {
@@ -61,8 +61,10 @@ namespace SignalR_Chat_Server.DAO
             using (var sqlConnection = new SqlConnection(_databaseSettings.ConnectionString))
             {
                 await sqlConnection.OpenAsync();
+
                 try
                 {
+
                     var cmdText = "[dbo].[GetUser]";
                 
                     using (var sqlCommand = new SqlCommand(cmdText, sqlConnection))
@@ -95,9 +97,10 @@ namespace SignalR_Chat_Server.DAO
         {
             using (var sqlConnection = new SqlConnection(_databaseSettings.ConnectionString))
             {
-                await sqlConnection.OpenAsync();
                 try
                 {
+                    await sqlConnection.OpenAsync();
+
                     var cmdText = "[dbo].[GetUserName]";
                     using (var sqlCommand = new SqlCommand(cmdText, sqlConnection))
                     {

@@ -25,9 +25,9 @@ namespace SignalR_Chat_Server.DAO
             var grouplist = new List<string>();
             using (var sqlConnection = new SqlConnection(_databaseSettings.ConnectionString))
             {
-                await sqlConnection.OpenAsync();
                 try
                 {
+                    await sqlConnection.OpenAsync();
                     var cmdText = "[dbo].[GetAllGroups]";
                     using (var sqlCommand = new SqlCommand(cmdText, sqlConnection))
                     {

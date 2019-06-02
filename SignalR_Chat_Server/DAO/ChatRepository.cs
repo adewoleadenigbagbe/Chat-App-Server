@@ -54,6 +54,7 @@ namespace SignalR_Chat_Server.DAO
             {
                 try
                 {
+                    await sqlConnection.OpenAsync();
                     var cmdText = "[dbo].[GetConnectionIds]";
                     using (var sqlCommand = new SqlCommand(cmdText, sqlConnection))
                     {
@@ -84,9 +85,10 @@ namespace SignalR_Chat_Server.DAO
         {
             using (var sqlConnection = new SqlConnection(_databaseSettings.ConnectionString))
             {
-                await sqlConnection.OpenAsync();
                 try
                 {
+                    await sqlConnection.OpenAsync();
+
                     var cmdText = "[dbo].[UpdateOnlineStatus]";
                     using (var sqlCommand = new SqlCommand(cmdText, sqlConnection))
                     {
