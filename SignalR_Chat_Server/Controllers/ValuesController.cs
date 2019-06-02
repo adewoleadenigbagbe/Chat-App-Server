@@ -25,8 +25,9 @@ namespace SignalR_Chat_Server.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody]string value)
+        public string Post([FromBody]string value)
         {
+            return "Hello";
         }
 
         // PUT api/values/5
