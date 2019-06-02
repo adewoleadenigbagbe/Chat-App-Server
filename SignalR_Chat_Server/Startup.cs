@@ -31,14 +31,14 @@ namespace SignalR_Chat_Server
         {
             services.Configure<DataBaseSettings>(Configuration.GetSection("DatabaseSettings"));
             services.AddOptions();
-            //services.AddCors(o => o.AddPolicy("EnableCORS", builder =>
-            //{
-            //    builder
-            //    .AllowAnyMethod()
-            //    .AllowAnyHeader()
-            //    .WithOrigins("*")
-            //    .AllowCredentials();
-            //}));
+            services.AddCors(o => o.AddPolicy("EnableCORS", builder =>
+            {
+                builder
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .WithOrigins("*")
+                .AllowCredentials();
+            }));
             services.AddSignalR();
             services.AddMvc();
         }
@@ -50,13 +50,12 @@ namespace SignalR_Chat_Server
             {
                 app.UseDeveloperExceptionPage();
             }
-            //app.UseCors("CorsPolicy");
              
             app.UseSignalR(routes =>
             {
                 routes.MapHub<ChatHub>("/chathub");
             });
-            //app.UseCors("EnableCORS");
+            app.UseCors("EnableCORS");
             app.UseMvc();
             
 
