@@ -31,14 +31,14 @@ namespace SignalR_Chat_Server
         {
             services.Configure<DataBaseSettings>(Configuration.GetSection("DatabaseSettings"));
             services.AddOptions();
-            //services.AddCors(o => o.AddPolicy("CorsPolicy", builder => {
-            //    builder
-            //    .AllowAnyMethod()
-            //    .AllowAnyHeader()
-            //    .WithOrigins("http://localhost:4200", "https://chat-web-app.herokuapp.com/")
-            //    .AllowCredentials();
-            //}));
-            services.AddCors();
+            services.AddCors(o => o.AddPolicy("EnableCORS", builder =>
+            {
+                builder
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .WithOrigins("http://localhost:4200", "https://chat-web-app.herokuapp.com/")
+                .AllowCredentials();
+            }));
             services.AddSignalR();
             services.AddMvc();
         }
@@ -51,7 +51,7 @@ namespace SignalR_Chat_Server
                 app.UseDeveloperExceptionPage();
             }
             //app.UseCors("CorsPolicy");
-            app.UseCors(options => options.WithOrigins("https://chat-web-app.herokuapp.com/").AllowAnyMethod());
+            app.UseCors("EnableCORS");
              
             app.UseSignalR(routes =>
             {
