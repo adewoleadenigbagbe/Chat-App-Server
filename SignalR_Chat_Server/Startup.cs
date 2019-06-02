@@ -51,13 +51,14 @@ namespace SignalR_Chat_Server
                 app.UseDeveloperExceptionPage();
             }
             //app.UseCors("CorsPolicy");
-            app.UseCors("EnableCORS");
              
             app.UseSignalR(routes =>
             {
                 routes.MapHub<ChatHub>("/chathub");
             });
             app.UseMvc();
+            app.UseCors("EnableCORS");
+
         }
     }
 }
