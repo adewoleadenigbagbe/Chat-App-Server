@@ -56,8 +56,9 @@ namespace SignalR_Chat_Server
             {
                 routes.MapHub<ChatHub>("/chathub");
             });
-            app.UseMvc();
             app.UseCors("EnableCORS");
+            app.UseMvc();
+            
 
         }
     }
