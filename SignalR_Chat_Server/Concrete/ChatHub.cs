@@ -96,14 +96,14 @@ namespace SignalR_Chat_Server.Concrete
                 {
                     Groups.AddToGroupAsync(Context.ConnectionId, category);
                     var message = string.Format("{0} entered the group", userName);
-                    
-                    Clients.GroupExcept(category, Context.ConnectionId).SendAsync("ConnectedAlert", message,userName,date);
+
+                    Clients.GroupExcept(category, Context.ConnectionId).SendAsync("ConnectedAlert", message, userName, date);
                 }
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                _logger.Error(ex.Message+ ex.StackTrace);
+                _logger.Error(ex.Message + ex.StackTrace);
             }
 
             return base.OnConnectedAsync();

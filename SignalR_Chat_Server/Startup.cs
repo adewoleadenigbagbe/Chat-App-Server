@@ -33,11 +33,12 @@ namespace SignalR_Chat_Server
             services.AddOptions();
             services.AddCors(o => o.AddPolicy("EnableCORS", builder =>
             {
+
                 builder
                 .AllowAnyMethod()
-                .AllowAnyHeader()
-                .WithOrigins("*")
-                .AllowCredentials();
+                .AllowAnyHeader().
+                WithOrigins("http://localhost:4200", "https://chat-web-app.herokuapp.com/").
+                AllowCredentials();
             }));
             services.AddSignalR();
             services.AddMvc();
@@ -50,14 +51,17 @@ namespace SignalR_Chat_Server
             {
                 app.UseDeveloperExceptionPage();
             }
-             
+            app.UseCors("EnableCORS");
+
             app.UseSignalR(routes =>
             {
                 routes.MapHub<ChatHub>("/chathub");
             });
-            app.UseCors("EnableCORS");
+
             app.UseMvc();
-            
+
+
+
 
         }
     }
