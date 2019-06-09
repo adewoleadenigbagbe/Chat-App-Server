@@ -19,15 +19,20 @@
 *.userprefs
 
 # Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
 x64/
 x86/
 [Aa][Rr][Mm]/
 [Aa][Rr][Mm]64/
 bld/
+[Bb]in/
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/
-
+Source\ZoneSwitch.TransactionManager.InterfacesTests
 
 Published
 Tests
@@ -73,8 +78,8 @@ StyleCopReport.xml
 *.obj
 *.iobj
 *.pch
-#*.pdb
-*.it 
+*.pdb
+*.ipdb
 *.pgc
 *.pgd
 *.rsp
@@ -170,6 +175,7 @@ DocProject/Help/Html2
 DocProject/Help/html
 
 # Click-Once directory
+publish/
 
 # Publish Web Output
 *.[Pp]ublish.xml
