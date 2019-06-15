@@ -21,7 +21,7 @@ namespace SignalR_Chat_Server
             .SetBasePath(env.ContentRootPath)
             .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
 
-            //add configuration build
+            //add configuration build..
             Configuration = builder.Build();
         }
 
