@@ -1,2 +1,2 @@
 # Chat-App-Server
-Server Side Chat App using SignalR
+Server Side Chat Application built in Microsoft SignalR
